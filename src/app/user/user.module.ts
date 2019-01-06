@@ -7,7 +7,11 @@ import { LogoutComponent } from './logout/logout.component';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 
 @NgModule({
-  declarations: [ProfileComponent, LogoutComponent, NavigationMenuComponent],
+  declarations: [
+    ProfileComponent,
+    LogoutComponent,
+    NavigationMenuComponent
+  ],
   imports: [
     CommonModule,
     UserRoutingModule
