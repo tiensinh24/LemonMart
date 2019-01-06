@@ -1,0 +1,6 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$lemon-app-primary: mat-palette($mat-green, 800);
+$lemon-app-accent:  mat-palette($mat-lime, A400);
+$lemon-app-theme: mat-light-theme($lemon-app-primary, $lemon-app-accent);
+@include angular-material-theme($lemon-app-theme);
