@@ -1,13 +1,22 @@
 import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+// tslint:disable-next-line:max-line-length
+import { commonTestingModules, commonTestingProviders, ObservableMediaFake, MatIconRegistryFake, DomSanitizerFake } from './common/common.testing';
+import { ObservableMedia } from '@angular/flex-layout';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        commonTestingModules
       ],
+      providers: commonTestingProviders.concat([
+        { provide: ObservableMedia, useClass: ObservableMediaFake },
+        { provide: MatIconRegistry, useClass: MatIconRegistryFake },
+        { provide: DomSanitizer, useClass: DomSanitizerFake }
+      ]),
       declarations: [
         AppComponent
       ],
