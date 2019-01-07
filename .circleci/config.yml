@@ -6,9 +6,19 @@ jobs:
       working_directory: /usr/src
       steps:
         - checkout
-        - setup_remote_docker:
-            docker_layer_caching: false
+        - setup_remote_docker:            
         - run:
             name: Build Docker Image
             command: |
-              npm run build:ci
+            docker build -f Dockerfile.integration . -t lemon-mart:$CIRCLE_BRANCH --build-arg CACHEBUST=$(date +%s)
+            mkdir -p docker-cache
+            docker save -o docker-cache/built-image.tar lemon-mart:$CIRCLE_BRANCH
+        - save_cache:
+            key: built-image-{{ .BuildNum }}
+            paths:
+            - docker-cache
+        - store_artifacts:
+            path: docker-cache/built-image.tar
+            destination: built-image.tar
+        - store_test_results:
+            path: tests/units.html
