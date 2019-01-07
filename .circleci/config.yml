@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
       docker:
-        - image: circleci/classic:201808-01
+        - image: docker 18.06.0-ce
       working_directory: /usr/src
       steps:
         - checkout
