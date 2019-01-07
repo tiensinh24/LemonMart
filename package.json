@@ -1,6 +1,7 @@
 {
   "name": "lemon-mart",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 5000",
@@ -9,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:prod": "ng build --prod",
-    "test:prod": "npm test -- --watch=false"
+    "test:prod": "npm test -- --watch=false",
+    "build:ci": "docker build -f Dockerfile.integration . -t $npm_package_config_imageRepo:latest"
   },
   "private": true,
   "dependencies": {
