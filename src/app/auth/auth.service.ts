@@ -129,18 +129,18 @@ export class AuthService extends CacheService {
   }
 
   private setToken(jwt: string) {
-    // this.setItem('jwt', jwt);
+    this.setItem('jwt', jwt);
   }
 
-  // private getDecodedToken(): IAuthStatus {
-  //   // return decode(this.getItem('jwt'));
-  // }
+  private getDecodedToken(): IAuthStatus {
+    return decode(this.getItem('jwt'));
+  }
 
-  // getToken(): string {
-    // return this.getItem('jwt') || '';
-  // }
+  getToken(): string {
+    return this.getItem('jwt') || '';
+  }
 
   private clearToken() {
-    // this.removeItem('jwt');
+    this.removeItem('jwt');
   }
 }
