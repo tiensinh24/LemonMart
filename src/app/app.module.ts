@@ -12,13 +12,16 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthService } from './auth/auth.service';
 import { LoginComponent } from './login/login.component';
+import { SimpleDialogComponent } from './common/simple-dialog/simple-dialog.component';
+import { CacheService } from './auth/cache.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    SimpleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    CacheService
   ],
   bootstrap: [AppComponent]
 })

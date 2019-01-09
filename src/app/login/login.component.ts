@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EmailValidation, PasswordValidation } from '../common/validators';
+import { UiService } from '../common/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uiService: UiService
   ) {
     route.paramMap.subscribe(params => {
       this.redirectUrl = params.get('redirectUrl');
@@ -29,13 +32,8 @@ export class LoginComponent implements OnInit {
 
   buildLoginForm() {
     this.loginForm = this.fb.group({
-      email: ['',
-        Validators.required,
-        Validators.email],
-      password: ['',
-        Validators.required,
-        Validators.minLength(8),
-        Validators.maxLength(50)]
+      email: ['', EmailValidation],
+      password: ['', PasswordValidation]
     });
   }
 
@@ -43,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(submittedForm.value.email, submittedForm.value.password)
       .subscribe(authStatus => {
         if (authStatus.isAuthenticated) {
+          this.uiService.showToast(`Welcome! Role: ${authStatus.userRole}`);
           this.router.navigate([this.redirectUrl || '/manager']);
         }
       }, error => this.loginError = error);

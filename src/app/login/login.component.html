@@ -2,17 +2,15 @@
   <mat-card fxFlex="400px">
     <mat-card-header>
       <mat-card-title>
-        <div class="mat-headline">
-          Hello, Lemonite!
-        </div>
+        <div class="mat-headline">Hello, Lemonite!</div>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)" fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <mat-icon>email</mat-icon>
-          <mat-form-field fxLfex>
-            <input matInput placeholder="E-mail" arial-label="E-mail" formControlName="email">
+          <mat-form-field fxFlex>
+            <input matInput placeholder="E-mail" aria-label="E-mail" formControlName="email">
             <mat-error *ngIf="loginForm.get('email').hasError('required')">
               E-mail is required
             </mat-error>
@@ -24,10 +22,8 @@
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <mat-icon matPrefix>vpn_key</mat-icon>
           <mat-form-field fxFlex>
-            <input matInput placeholder="Password" type="password" aria-label="Password" formControlName="password">
-            <mat-hint>
-              Minimum 8 characters
-            </mat-hint>
+            <input matInput placeholder="Password" aria-label="Password" type="password" formControlName="password">
+            <mat-hint>Minimum 8 characters</mat-hint>
             <mat-error *ngIf="loginForm.get('password').hasError('required')">
               Password is required
             </mat-error>

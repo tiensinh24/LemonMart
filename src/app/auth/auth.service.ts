@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { transformError } from '../common/common';
 // import { CacheService } from './cache.service';
 import { Role } from './role.enum';
+import { CacheService } from './cache.service';
 
 export interface IAuthService {
   authStatus: BehaviorSubject<IAuthStatus>;
@@ -33,18 +34,25 @@ export const defaultAuthStatus = {
   userId: null,
 };
 
-@Injectable()
-export class AuthService {
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService extends CacheService {
   private readonly authProvider: (
     email: string,
     password: string
   ) => Observable<IServerAuthResponse>;
-  // authStatus = new BehaviorSubject<IAuthStatus>(
-  //   this.getItem('authStatus') || defaultAuthStatus
-  // );
+
+  authStatus = new
+    BehaviorSubject<IAuthStatus>(
+      this.getItem('authStatus') || defaultAuthStatus
+    );
 
   constructor(private httpClient: HttpClient) {
-    // this.authStatus.subscribe(authStatus => this.setItem('authStatus', authStatus));
+    super();
+    this.authStatus.subscribe(authStatus => {
+      this.setItem('authStatus', authStatus);
+    });
     // Fake login function to simulate roles
     this.authProvider = this.fakeAuthProvider;
     // Example of a real login call to server-side
@@ -62,15 +70,15 @@ export class AuthService {
       catchError(transformError)
     );
 
-    // loginResponse.subscribe(
-    //   res => {
-    //     this.authStatus.next(res);
-    //   },
-    //   err => {
-    //     this.logout();
-    //     return observableThrowError(err);
-    //   }
-    // );
+    loginResponse.subscribe(
+      res => {
+        this.authStatus.next(res);
+      },
+      err => {
+        this.logout();
+        return observableThrowError(err);
+      }
+    );
 
     return loginResponse;
   }
@@ -117,7 +125,7 @@ export class AuthService {
 
   logout() {
     this.clearToken();
-    // this.authStatus.next(defaultAuthStatus);
+    this.authStatus.next(defaultAuthStatus);
   }
 
   private setToken(jwt: string) {

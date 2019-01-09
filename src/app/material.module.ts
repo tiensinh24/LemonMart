@@ -7,7 +7,8 @@ import {
   MatCardModule,
   MatTooltipModule,
   MatFormFieldModule,
-  MatError
+  MatError,
+  MatDialogModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatTooltipModule,
     MatFormFieldModule,
+    MatDialogModule,
     BrowserAnimationsModule
   ],
   exports: [
@@ -31,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatTooltipModule,
     MatFormFieldModule,
+    MatDialogModule,
     BrowserAnimationsModule
   ]
 })
